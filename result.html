@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Water Quality Results</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -19,105 +19,57 @@
                     <th>ASTM</th>
                 </tr>
             </thead>
-            <tbody id="resultsBody"></tbody>
+            <tbody id="results">
+                <!-- Results will be injected here by JavaScript -->
+            </tbody>
         </table>
     </div>
-
+    
     <script>
-        function analyzeAndDisplayResults() {
-            const params = {
-                pH: parseFloat(localStorage.getItem('pH')),
-                turbidity: parseFloat(localStorage.getItem('turbidity')),
-                tds: parseFloat(localStorage.getItem('tds')),
-                cyanide: parseFloat(localStorage.getItem('cyanide')),
-                radiation: parseFloat(localStorage.getItem('radiation')),
-                nitrate: parseFloat(localStorage.getItem('nitrate')),
-                phosphate: parseFloat(localStorage.getItem('phosphate')),
-                lead: parseFloat(localStorage.getItem('lead')),
-                mercury: parseFloat(localStorage.getItem('mercury')),
-                arsenic: parseFloat(localStorage.getItem('arsenic')),
-            };
+        const results = document.getElementById("results");
+        
+        const parameters = {
+            ph: parseFloat(localStorage.getItem("ph")),
+            turbidity: parseFloat(localStorage.getItem("turbidity")),
+            tds: parseFloat(localStorage.getItem("tds")),
+            cn: parseFloat(localStorage.getItem("cn")),
+            radiation: parseFloat(localStorage.getItem("radiation")),
+            nitrate: parseFloat(localStorage.getItem("nitrate")),
+            phosphate: parseFloat(localStorage.getItem("phosphate")),
+            lead: parseFloat(localStorage.getItem("lead")),
+            mercury: parseFloat(localStorage.getItem("mercury")),
+            arsenic: parseFloat(localStorage.getItem("arsenic"))
+        };
 
-            const results = {
-                pH: params.pH >= 6.5 && params.pH <= 8.5 ? `Good (6.5 - 8.5)` : `Not Safe (6.5 - 8.5)`,
-                turbidity: params.turbidity <= 5 ? `Good (0 - 5)` : `Not Safe (0 - 5)`,
-                tds: params.tds <= 1000 ? `Good (0 - 1000)` : `Not Safe (0 - 1000)`,
-                cyanide: params.cyanide <= 0.2 ? `Good (0 - 0.2)` : `Not Safe (0 - 0.2)`,
-                radiation: params.radiation <= 4 ? `Good (0 - 4)` : `Not Safe (0 - 4)`,
-                nitrate: params.nitrate <= 10 ? `Good (0 - 10)` : `Not Safe (0 - 10)`,
-                phosphate: params.phosphate <= 0.1 ? `Good (0 - 0.1)` : `Not Safe (0 - 0.1)`,
-                lead: params.lead <= 0.015 ? `Good (0 - 0.015)` : `Not Safe (0 - 0.015)`,
-                mercury: params.mercury <= 2 ? `Good (0 - 2)` : `Not Safe (0 - 2)`,
-                arsenic: params.arsenic <= 0.01 ? `Good (0 - 0.01)` : `Not Safe (0 - 0.01)`,
-            };
+        const ranges = {
+            ph: { WHO: "6.5-8.5", EPA: "6.5-8.5", EU: "6.5-9", ASTM: "6.5-8.5" },
+            turbidity: { WHO: "0-5", EPA: "0-5", EU: "0-4", ASTM: "0-5" },
+            tds: { WHO: "0-1000", EPA: "0-500", EU: "0-1500", ASTM: "0-1000" },
+            cn: { WHO: "0-0.07", EPA: "0-0.2", EU: "0-0.05", ASTM: "0-0.2" },
+            radiation: { WHO: "0-100", EPA: "0-4", EU: "0-10", ASTM: "0-100" },
+            nitrate: { WHO: "0-50", EPA: "0-10", EU: "0-50", ASTM: "0-10" },
+            phosphate: { WHO: "0-0.1", EPA: "0-0.1", EU: "0-0.5", ASTM: "0-0.1" },
+            lead: { WHO: "0-0.01", EPA: "0-0.015", EU: "0-0.01", ASTM: "0-0.015" },
+            mercury: { WHO: "0-0.002", EPA: "0-0.002", EU: "0-0.006", ASTM: "0-0.002" },
+            arsenic: { WHO: "0-0.01", EPA: "0-0.01", EU: "0-0.01", ASTM: "0-0.01" },
+        };
 
-            const resultsBody = document.getElementById('resultsBody');
-            resultsBody.innerHTML = `
-                <tr>
-                    <td>pH</td>
-                    <td class="${results.pH.includes('Good') ? 'good' : 'not-safe'}">${results.pH}</td>
-                    <td class="${results.pH.includes('Good') ? 'good' : 'not-safe'}">${results.pH}</td>
-                    <td class="${results.pH.includes('Good') ? 'good' : 'not-safe'}">${results.pH}</td>
-                    <td class="${results.pH.includes('Good') ? 'good' : 'not-safe'}">${results.pH}</td>
-                </tr>
-                <tr>
-                    <td>Turbidity</td>
-                    <td class="${results.turbidity.includes('Good') ? 'good' : 'not-safe'}">${results.turbidity}</td>
-                    <td class="${results.turbidity.includes('Good') ? 'good' : 'not-safe'}">${results.turbidity}</td>
-                    <td class="${results.turbidity.includes('Good') ? 'good' : 'not-safe'}">${results.turbidity}</td>
-                    <td class="${results.turbidity.includes('Good') ? 'good' : 'not-safe'}">${results.turbidity}</td>
-                </tr>
-                <tr>
-                    <td>Total Dissolved Solids (TDS)</td>
-                    <td class="${results.tds.includes('Good') ? 'good' : 'not-safe'}">${results.tds}</td>
-                    <td class="${results.tds.includes('Good') ? 'good' : 'not-safe'}">${results.tds}</td>
-                    <td class="${results.tds.includes('Good') ? 'good' : 'not-safe'}">${results.tds}</td>
-                    <td class="${results.tds.includes('Good') ? 'good' : 'not-safe'}">${results.tds}</td>
-                </tr>
-                <tr>
-                    <td>Cyanide</td>
-                    <td class="${results.cyanide.includes('Good') ? 'good' : 'not-safe'}">${results.cyanide}</td>
-                    <td class="${results.cyanide.includes('Good') ? 'good' : 'not-safe'}">${results.cyanide}</td>
-                    <td class="${results.cyanide.includes('Good') ? 'good' : 'not-safe'}">${results.cyanide}</td>
-                    <td class="${results.cyanide.includes('Good') ? 'good' : 'not-safe'}">${results.cyanide}</td>
-                </tr>
-                <tr>
-                    <td>Radiation</td>
-                    <td class="${results.radiation.includes('Good') ? 'good' : 'not-safe'}">${results.radiation}</td>
-                    <td class="${results.radiation.includes('Good') ? 'good' : 'not-safe'}">${results.radiation}</td>
-                    <td class="${results.radiation.includes('Good') ? 'good' : 'not-safe'}">${results.radiation}</td>
-                    <td class="${results.radiation.includes('Good') ? 'good' : 'not-safe'}">${results.radiation}</td>
-                </tr>
-                <tr>
-                    <td>Nitrate</td>
-                    <td class="${results.nitrate.includes('Good') ? 'good' : 'not-safe'}">${results.nitrate}</td>
-                    <td class="${results.nitrate.includes('Good') ? 'good' : 'not-safe'}">${results.nitrate}</td>
-                    <td class="${results.nitrate.includes('Good') ? 'good' : 'not-safe'}">${results.nitrate}</td>
-                    <td class="${results.nitrate.includes('Good') ? 'good' : 'not-safe'}">${results.nitrate}</td>
-                </tr>
-                <tr>
-                    <td>Phosphate</td>
-                    <td class="${results.phosphate.includes('Good') ? 'good' : 'not-safe'}">${results.phosphate}</td>
-                    <td class="${results.phosphate.includes('Good') ? 'good' : 'not-safe'}">${results.phosphate}</td>
-                    <td class="${results.phosphate.includes('Good') ? 'good' : 'not-safe'}">${results.phosphate}</td>
-                    <td class="${results.phosphate.includes('Good') ? 'good' : 'not-safe'}">${results.phosphate}</td>
-                </tr>
-                <tr>
-                    <td>Lead</td>
-                    <td class="${results.lead.includes('Good') ? 'good' : 'not-safe'}">${results.lead}</td>
-                    <td class="${results.lead.includes('Good') ? 'good' : 'not-safe'}">${results.lead}</td>
-                    <td class="${results.lead.includes('Good') ? 'good' : 'not-safe'}">${results.lead}</td>
-                    <td class="${results.lead.includes('Good') ? 'good' : 'not-safe'}">${results.lead}</td>
-                </tr>
-                <tr>
-                    <td>Mercury</td>
-                    <td class="${results.mercury.includes('Good') ? 'good' : 'not-safe'}">${results.mercury}</td>
-                    <td class="${results.mercury.includes('Good') ? 'good' : 'not-safe'}">${results.mercury}</td>
-                    <td class="${results.mercury.includes('Good') ? 'good' : 'not-safe'}">${results.mercury}</td>
-                    <td class="${results.mercury.includes('Good') ? 'good' : 'not-safe'}">${results.mercury}</td>
-                </tr><tr>
-                    <td>Arsenic</td>
-                    <td class="${results.arsenic.includes('Good') ? 'good' : 'not-safe'}">${results.arsenic}</td>
-                    <td class="${results.arsenic.includes('Good') ? 'good' : 'not-safe'}">${results.arsenic}</td>
-                    <td class="${results.arsenic.includes('Good') ? 'good' : 'not-safe'}">${results.arsenic}</td>
-                    <td class="${results.arsenic.includes
+        for (const parameter in parameters) {
+            const value = parameters[parameter];
+            let row = `<tr><td>${parameter.toUpperCase()}</td>`;
+            let status = "";
+            for (const org in ranges[parameter]) {
+                if (value >= parseFloat(ranges[parameter][org].split('-')[0]) && value <= parseFloat(ranges[parameter][org].split('-')[1])) {
+                    status = "Good";
+                    row += `<td class="good">${status} (${ranges[parameter][org]})</td>`;
+                } else {
+                    status = "Not Safe";
+                    row += `<td class="not-safe">${status} (${ranges[parameter][org]})</td>`;
+                }
+            }
+            row += `</tr>`;
+            results.innerHTML += row;
+        }
+    </script>
+</body>
+</html>
