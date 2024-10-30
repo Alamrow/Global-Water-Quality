@@ -8,66 +8,145 @@
 </head>
 <body>
     <h1>Water Quality Results</h1>
-    <div id="results">
-        <table>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>WHO</th>
-                    <th>EPA</th>
-                    <th>EU</th>
-                    <th>ASTM</th>
-                </tr>
-            </thead>
-            <tbody id="resultRows">
-                <!-- Results will be dynamically inserted here -->
-            </tbody>
-        </table>
-    </div>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>WHO</th>
+                <th>EPA</th>
+                <th>EU</th>
+                <th>ASTM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="parameter">pH</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Turbidity (NTU)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Total Dissolved Solids (TDS) (ppm)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Cyanide (CN) (ppm)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Radiation (Bq)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Nitrate (NO3) (ppm)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Phosphate (PO4) (ppm)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Lead (Pb) (ppm)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Mercury (Hg) (ppb)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+            <tr>
+                <td class="parameter">Arsenic (As) (ppb)</td>
+                <td class="who">N/A</td>
+                <td class="epa">N/A</td>
+                <td class="eu">N/A</td>
+                <td class="astm">N/A</td>
+            </tr>
+        </tbody>
+    </table>
     <script>
-        const waterQualityData = JSON.parse(localStorage.getItem('waterQualityData'));
+        function analyzeAndDisplayResults() {
+            const params = {
+                pH: parseFloat(localStorage.getItem('pH')),
+                turbidity: parseFloat(localStorage.getItem('turbidity')),
+                tds: parseFloat(localStorage.getItem('tds')),
+                cyanide: parseFloat(localStorage.getItem('cyanide')),
+                radiation: parseFloat(localStorage.getItem('radiation')),
+                nitrate: parseFloat(localStorage.getItem('nitrate')),
+                phosphate: parseFloat(localStorage.getItem('phosphate')),
+                lead: parseFloat(localStorage.getItem('lead')),
+                mercury: parseFloat(localStorage.getItem('mercury')),
+                arsenic: parseFloat(localStorage.getItem('arsenic')),
+            };
 
-        const ranges = {
-            ph: { who: [6.5, 8.5], epa: [6.5, 8.5], eu: [6.5, 9], astm: [6.5, 8.5] },
-            turbidity: { who: [0, 5], epa: [0, 5], eu: [0, 4], astm: [0, 5] },
-            tds: { who: [0, 1000], epa: [0, 500], eu: [0, 1500], astm: [0, 1000] },
-            cyanide: { who: [0, 0.07], epa: [0, 0.2], eu: [0, 0.05], astm: [0, 0.2] },
-            radiation: { who: [0, 100], epa: [0, 4], eu: [0, 10], astm: [0, 100] },
-            nitrate: { who: [0, 50], epa: [0, 10], eu: [0, 50], astm: [0, 10] },
-            phosphate: { who: [0, 0.1], epa: [0, 0.1], eu: [0, 0.5], astm: [0, 0.1] },
-            lead: { who: [0, 0.01], epa: [0, 0.015], eu: [0, 0.01], astm: [0, 0.015] },
-            mercury: { who: [0, 0.006], epa: [0, 0.002], eu: [0, 0.006], astm: [0, 0.002] },
-            arsenic: { who: [0, 0.01], epa: [0, 0.01], eu: [0, 0.01], astm: [0, 0.01] }
-        };
+            const ranges = {
+                pH: { good: "6.5 - 8.5", notSafe: "less than 6.5 or greater than 8.5" },
+                turbidity: { good: "0 - 5", notSafe: "greater than 5" },
+                tds: { good: "0 - 500", notSafe: "greater than 500" },
+                cyanide: { good: "0 - 0.2", notSafe: "greater than 0.2" },
+                radiation: { good: "0 - 1", notSafe: "greater than 1" },
+                nitrate: { good: "0 - 50", notSafe: "greater than 50" },
+                phosphate: { good: "0 - 0.5", notSafe: "greater than 0.5" },
+                lead: { good: "0 - 0.01", notSafe: "greater than 0.01" },
+                mercury: { good: "0 - 0.002", notSafe: "greater than 0.002" },
+                arsenic: { good: "0 - 0.01", notSafe: "greater than 0.01" },
+            };
 
-        function checkValue(value, range) {
-            return (value >= range[0] && value <= range[1]) ? 'Good' : 'Not Safe';
+            for (const param in params) {
+                const value = params[param];
+                let resultText, color;
+
+                if (isNaN(value)) {
+                    resultText = 'N/A';
+                    color = 'black';
+                } else if (value < parseFloat(ranges[param].good.split(' - ')[0]) || value > parseFloat(ranges[param].notSafe.split('greater than ')[1])) {
+                    resultText = `Not Safe (${ranges[param].notSafe})`;
+                    color = 'red';
+                } else {
+                    resultText = `Good (${ranges[param].good})`;
+                    color = 'green';
+                }
+
+                // Update the table with results
+                const row = document.querySelector(`tr:has(.parameter:contains(${param}))`);
+                row.querySelector(`.who`).textContent = resultText;
+                row.querySelector(`.who`).style.color = color;
+
+                // Additional ranges can be added similarly for EPA, EU, and ASTM
+                row.querySelector(`.epa`).textContent = 'To be defined';
+                row.querySelector(`.eu`).textContent = 'To be defined';
+                row.querySelector(`.astm`).textContent = 'To be defined';
+            }
         }
 
-        const parameters = ['ph', 'turbidity', 'tds', 'cyanide', 'radiation', 'nitrate', 'phosphate', 'lead', 'mercury', 'arsenic'];
-        const resultRows = document.getElementById('resultRows');
-
-        parameters.forEach(param => {
-            const row = document.createElement('tr');
-            
-            const paramName = document.createElement('td');
-            paramName.textContent = param.toUpperCase();
-            row.appendChild(paramName);
-
-            ['who', 'epa', 'eu', 'astm'].forEach(org => {
-                const result = document.createElement('td');
-                const value = waterQualityData[param];
-                const status = checkValue(parseFloat(value), ranges[param][org]);
-                const rangeText = `(${ranges[param][org][0]} - ${ranges[param][org][1]})`;
-
-                result.textContent = `${status} ${rangeText}`;
-                result.className = status === 'Good' ? 'good' : 'not-safe';
-                row.appendChild(result);
-            });
-
-            resultRows.appendChild(row);
-        });
+        window.onload = analyzeAndDisplayResults;
     </script>
 </body>
 </html>
