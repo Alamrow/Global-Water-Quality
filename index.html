@@ -8,174 +8,83 @@
 </head>
 <body>
     <h1>Water Quality Analyzer</h1>
-    <form id="water-quality-form">
+    <form id="parameterForm">
         <div class="parameter-box">
             <label for="ph">pH:</label>
-            <input type="number" id="ph" required>
+            <input type="text" id="ph">
         </div>
         <div class="parameter-box">
             <label for="turbidity">Turbidity (NTU):</label>
-            <input type="number" id="turbidity" required>
+            <input type="text" id="turbidity">
         </div>
         <div class="parameter-box">
             <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
-            <input type="number" id="tds" required>
+            <input type="text" id="tds">
         </div>
         <div class="parameter-box">
             <label for="cn">Cyanide (CN) (ppm):</label>
-            <input type="number" id="cn" required>
+            <input type="text" id="cn">
         </div>
         <div class="parameter-box">
-            <label for="radiation">Radiation (Bq):</label>
-            <input type="number" id="radiation" required>
+            <label for="br">Radiation (Bq):</label>
+            <input type="text" id="br">
         </div>
         <div class="parameter-box">
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
-            <input type="number" id="nitrate" required>
+            <input type="text" id="nitrate">
         </div>
         <div class="parameter-box">
             <label for="phosphate">Phosphate (PO4) (ppm):</label>
-            <input type="number" id="phosphate" required>
+            <input type="text" id="phosphate">
         </div>
         <div class="parameter-box">
             <label for="lead">Lead (Pb) (ppm):</label>
-            <input type="number" id="lead" required>
+            <input type="text" id="lead">
         </div>
         <div class="parameter-box">
             <label for="mercury">Mercury (Hg) (ppm):</label>
-            <input type="number" id="mercury" required>
+            <input type="text" id="mercury">
         </div>
         <div class="parameter-box">
             <label for="arsenic">Arsenic (As) (ppm):</label>
-            <input type="number" id="arsenic" required>
+            <input type="text" id="arsenic">
         </div>
-        <button type="button" onclick="compareParameters()">Analyze</button>
+        <button type="button" id="analyze-btn">Analyze</button>
     </form>
     <script>
-        function analyzeParameter(value, ranges) {
+        document.getElementById("analyze-btn").addEventListener("click", function() {
             const results = {};
-            for (const [key, limit] of Object.entries(ranges)) {
-                results[key] = value <= limit ? "Good" : "Out of Range";
-            }
-            return results;
-        }
-
-        function compareParameters() {
             const parameters = [
-                {
-                    id: "ph",
-                    name: "pH",
-                    ranges: {
-                        WHO: 8.5,
-                        EPA: 8.5,
-                        EU: 9.0,
-                        ASTM: 8.5
-                    }
-                },
-                {
-                    id: "turbidity",
-                    name: "Turbidity",
-                    ranges: {
-                        WHO: 5,
-                        EPA: 5,
-                        EU: 4,
-                        ASTM: 5
-                    }
-                },
-                {
-                    id: "tds",
-                    name: "Total Dissolved Solids (TDS)",
-                    ranges: {
-                        WHO: 1000,
-                        EPA: 500,
-                        EU: 1500,
-                        ASTM: 1000
-                    }
-                },
-                {
-                    id: "cn",
-                    name: "Cyanide (CN)",
-                    ranges: {
-                        WHO: 0.07,
-                        EPA: 0.2,
-                        EU: 0.05,
-                        ASTM: 0.2
-                    }
-                },
-                {
-                    id: "radiation",
-                    name: "Radiation",
-                    ranges: {
-                        WHO: 100,
-                        EPA: 4,
-                        EU: 10,
-                        ASTM: 100
-                    }
-                },
-                {
-                    id: "nitrate",
-                    name: "Nitrate (NO3)",
-                    ranges: {
-                        WHO: 10,
-                        EPA: 10,
-                        EU: 10,
-                        ASTM: 10
-                    }
-                },
-                {
-                    id: "phosphate",
-                    name: "Phosphate (PO4)",
-                    ranges: {
-                        WHO: 0.1,
-                        EPA: 0.1,
-                        EU: 0.1,
-                        ASTM: 0.1
-                    }
-                },
-                {
-                    id: "lead",
-                    name: "Lead (Pb)",
-                    ranges: {
-                        WHO: 0.01,
-                        EPA: 0.015,
-                        EU: 0.01,
-                        ASTM: 0.01
-                    }
-                },
-                {
-                    id: "mercury",
-                    name: "Mercury (Hg)",
-                    ranges: {
-                        WHO: 0.006,
-                        EPA: 0.002,
-                        EU: 0.002,
-                        ASTM: 0.002
-                    }
-                },
-                {
-                    id: "arsenic",
-                    name: "Arsenic (As)",
-                    ranges: {
-                        WHO: 0.01,
-                        EPA: 0.01,
-                        EU: 0.01,
-                        ASTM: 0.01
-                    }
-                }
+                { id: "ph", name: "pH", ranges: { WHO: 8.5, EPA: 8.5, EU: 9.0, ASTM: 8.5 } },
+                { id: "turbidity", name: "Turbidity", ranges: { WHO: 5, EPA: 5, EU: 4, ASTM: 5 } },
+                { id: "tds", name: "Total Dissolved Solids (TDS)", ranges: { WHO: 1000, EPA: 500, EU: 1500, ASTM: 1000 } },
+                { id: "cn", name: "Cyanide (CN)", ranges: { WHO: 0.07, EPA: 0.2, EU: 0.05, ASTM: 0.2 } },
+                { id: "br", name: "Radiation", ranges: { WHO: 100, EPA: 4, EU: 10, ASTM: 100 } },
+                { id: "nitrate", name: "Nitrate (NO3)", ranges: { WHO: 10, EPA: 10, EU: 10, ASTM: 10 } },
+                { id: "phosphate", name: "Phosphate (PO4)", ranges: { WHO: 0.1, EPA: 0.1, EU: 0.1, ASTM: 0.1 } },
+                { id: "lead", name: "Lead (Pb)", ranges: { WHO: 0.01, EPA: 0.015, EU: 0.01, ASTM: 0.01 } },
+                { id: "mercury", name: "Mercury (Hg)", ranges: { WHO: 0.006, EPA: 0.002, EU: 0.002, ASTM: 0.002 } },
+                { id: "arsenic", name: "Arsenic (As)", ranges: { WHO: 0.01, EPA: 0.01, EU: 0.01, ASTM: 0.01 } },
             ];
 
-            const results = {};
             parameters.forEach(param => {
                 const value = parseFloat(document.getElementById(param.id).value);
-                const status = isNaN(value) ? "Please enter a valid number." : analyzeParameter(value, param.ranges);
-                
-                results[param.id] = [];
-                results[param.id].push(`${param.name}: WHO: ${status.WHO}, EPA: ${status.EPA}, EU: ${status.EU}, ASTM: ${status.ASTM}`);
+                if (!isNaN(value)) {
+                    results[param.name] = {
+                        WHO: value <= param.ranges.WHO ? "Good" : "Out of Range",
+                        EPA: value <= param.ranges.EPA ? "Good" : "Out of Range",
+                        EU: value <= param.ranges.EU ? "Good" : "Out of Range",
+                        ASTM: value <= param.ranges.ASTM ? "Good" : "Out of Range"
+                    };
+                } else {
+                    results[param.name] = "Please enter a valid number.";
+                }
             });
 
-            localStorage.setItem('waterQualityResults', JSON.stringify(results));
-            window.location.href = 'result.html';
-        }
+            // Store results in localStorage and redirect to result.html
+            localStorage.setItem("waterQualityResults", JSON.stringify(results));
+            window.location.href = "result.html";
+        });
     </script>
 </body>
 </html>
