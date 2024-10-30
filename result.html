@@ -8,37 +8,38 @@
 </head>
 <body>
     <h1>Water Quality Results</h1>
-    <div id="results">
-        <div class="result-header">
-            <h2>Results</h2>
-            <div class="standards">
-                <div class="standard">
-                    <h3>WHO</h3>
-                    <div id="who-results"></div>
-                </div>
-                <div class="standard">
-                    <h3>EPA</h3>
-                    <div id="epa-results"></div>
-                </div>
-                <div class="standard">
-                    <h3>EU</h3>
-                    <div id="eu-results"></div>
-                </div>
-                <div class="standard">
-                    <h3>ASTM</h3>
-                    <div id="astm-results"></div>
-                </div>
-            </div>
+    <div class="standards">
+        <div class="standard">
+            <h3>WHO</h3>
+            <div id="who-results"></div>
+        </div>
+        <div class="standard">
+            <h3>EPA</h3>
+            <div id="epa-results"></div>
+        </div>
+        <div class="standard">
+            <h3>EU</h3>
+            <div id="eu-results"></div>
+        </div>
+        <div class="standard">
+            <h3>ASTM</h3>
+            <div id="astm-results"></div>
         </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const params = JSON.parse(localStorage.getItem('waterQualityResults'));
-            if (params) {
-                Object.entries(params).forEach(([key, values]) => {
-                    document.getElementById(`${key}-results`).innerHTML = values.map(result => `<p>${result}</p>`).join("");
-                });
+            const results = JSON.parse(localStorage.getItem("waterQualityResults"));
+
+            if (results) {
+                for (const [param, status] of Object.entries(results)) {
+                    for (const [standard, result] of Object.entries(status)) {
+                        document.getElementById(`${standard.toLowerCase()}-results`).innerHTML += `<p>${param}: ${result}</p>`;
+                    }
+                }
+            } else {
+                document.getElementById("who-results").innerHTML = "No results available.";
             }
+            localStorage.removeItem("waterQualityResults"); // Clear results after displaying
         });
     </script>
 </body>
