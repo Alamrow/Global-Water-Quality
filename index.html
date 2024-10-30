@@ -11,43 +11,43 @@
     <form id="parameterForm">
         <div class="parameter-box">
             <label for="ph">pH:</label>
-            <input type="text" id="ph">
+            <input type="number" id="ph" step="0.1" required>
         </div>
         <div class="parameter-box">
             <label for="turbidity">Turbidity (NTU):</label>
-            <input type="text" id="turbidity">
+            <input type="number" id="turbidity" required>
         </div>
         <div class="parameter-box">
             <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
-            <input type="text" id="tds">
+            <input type="number" id="tds" required>
         </div>
         <div class="parameter-box">
             <label for="cn">Cyanide (CN) (ppm):</label>
-            <input type="text" id="cn">
+            <input type="number" id="cn" required>
         </div>
         <div class="parameter-box">
             <label for="br">Radiation (Bq):</label>
-            <input type="text" id="br">
+            <input type="number" id="br" required>
         </div>
         <div class="parameter-box">
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
-            <input type="text" id="nitrate">
+            <input type="number" id="nitrate" required>
         </div>
         <div class="parameter-box">
             <label for="phosphate">Phosphate (PO4) (ppm):</label>
-            <input type="text" id="phosphate">
+            <input type="number" id="phosphate" required>
         </div>
         <div class="parameter-box">
             <label for="lead">Lead (Pb) (ppm):</label>
-            <input type="text" id="lead">
+            <input type="number" id="lead" required>
         </div>
         <div class="parameter-box">
             <label for="mercury">Mercury (Hg) (ppb):</label>
-            <input type="text" id="mercury">
+            <input type="number" id="mercury" required>
         </div>
         <div class="parameter-box">
             <label for="arsenic">Arsenic (As) (ppm):</label>
-            <input type="text" id="arsenic">
+            <input type="number" id="arsenic" required>
         </div>
         <button type="button" id="analyze-btn">Analyze</button>
     </form>
@@ -68,8 +68,19 @@
 
             const results = parameters.map(param => {
                 const value = parseFloat(document.getElementById(param.id).value);
-                const status = isNaN(value) ? "N/A" : (value <= param.ranges.WHO ? "Good" : "Out of Range");
-                return { name: param.name, WHO: status, EPA: status, EU: status, ASTM: status, ranges: param.ranges };
+                const whoStatus = value <= param.ranges.WHO ? "Good" : "Out of Range";
+                const epaStatus = value <= param.ranges.EPA ? "Good" : "Out of Range";
+                const euStatus = value <= param.ranges.EU ? "Good" : "Out of Range";
+                const astmStatus = value <= param.ranges.ASTM ? "Good" : "Out of Range";
+
+                return {
+                    name: param.name,
+                    WHO: whoStatus,
+                    EPA: epaStatus,
+                    EU: euStatus,
+                    ASTM: astmStatus,
+                    ranges: param.ranges,
+                };
             });
 
             localStorage.setItem('results', JSON.stringify(results));
