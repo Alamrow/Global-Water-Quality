@@ -1,41 +1,91 @@
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #FFD700;
     margin: 0;
     padding: 20px;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 h1 {
-    text-align: center;
     color: #333;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+form {
+    background-color: #309ba3;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+label {
+    display: block;
+    margin-bottom: 5px;
 }
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #9ed0df;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap; /* Maintains formatting for new lines */
+}
+
+a {
+    color: #0000EE; /* Default link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+    font-family: Arial, sans-serif;
+    color: #000000; /* Black color for text */
+    background-color: #FFD700; /* Gold background for contrast */
+    padding: 20px;
+    text-align: left;
+}
+
+footer a {
+    color: #FFD700; /* Ensure links also follow the theme color */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline; /* Optional hover effect */
+}
+
 
 .good {
-    color: green; /* Green for Good results */
+    color: rgb(0, 128, 38); /* Green for Good results */
     font-weight: bold;
 }
 
 .not-safe {
-    color: red; /* Red for Not Safe results */
+    color: rgb(160, 19, 19); /* Red for Not Safe results */
     font-weight: bold;
 }
