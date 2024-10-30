@@ -11,62 +11,51 @@
         <h1>Water Quality Analyzer</h1>
         <form id="waterQualityForm">
             <div class="input-group">
-                <label for="pH">pH ():</label>
-                <input type="number" id="pH" placeholder="Enter pH value" required>
+                <label for="ph">pH:</label>
+                <input type="number" id="ph" placeholder="Enter pH value" required>
             </div>
-
             <div class="input-group">
                 <label for="turbidity">Turbidity (NTU):</label>
                 <input type="number" id="turbidity" placeholder="Enter Turbidity (NTU)" required>
             </div>
-
             <div class="input-group">
                 <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
                 <input type="number" id="tds" placeholder="Enter TDS (ppm)" required>
             </div>
-
             <div class="input-group">
                 <label for="cyanide">Cyanide (CN) (ppm):</label>
                 <input type="number" id="cyanide" placeholder="Enter Cyanide (ppm)" required>
             </div>
-
             <div class="input-group">
                 <label for="radiation">Radiation (Bq):</label>
                 <input type="number" id="radiation" placeholder="Enter Radiation (Bq)" required>
             </div>
-
             <div class="input-group">
                 <label for="nitrate">Nitrate (NO3) (ppm):</label>
                 <input type="number" id="nitrate" placeholder="Enter Nitrate (ppm)" required>
             </div>
-
             <div class="input-group">
                 <label for="phosphate">Phosphate (PO4) (ppm):</label>
                 <input type="number" id="phosphate" placeholder="Enter Phosphate (ppm)" required>
             </div>
-
             <div class="input-group">
                 <label for="lead">Lead (Pb) (ppm):</label>
                 <input type="number" id="lead" placeholder="Enter Lead (ppm)" required>
             </div>
-
             <div class="input-group">
                 <label for="mercury">Mercury (Hg) (ppb):</label>
                 <input type="number" id="mercury" placeholder="Enter Mercury (ppb)" required>
             </div>
-
             <div class="input-group">
                 <label for="arsenic">Arsenic (As) (ppb):</label>
                 <input type="number" id="arsenic" placeholder="Enter Arsenic (ppb)" required>
             </div>
-
             <button type="button" id="analyze">Analyze</button>
         </form>
     </div>
-
     <script>
         document.getElementById('analyze').addEventListener('click', function () {
-            localStorage.setItem('pH', document.getElementById('pH').value);
+            localStorage.setItem('ph', document.getElementById('ph').value);
             localStorage.setItem('turbidity', document.getElementById('turbidity').value);
             localStorage.setItem('tds', document.getElementById('tds').value);
             localStorage.setItem('cyanide', document.getElementById('cyanide').value);
@@ -76,14 +65,13 @@
             localStorage.setItem('lead', document.getElementById('lead').value);
             localStorage.setItem('mercury', document.getElementById('mercury').value);
             localStorage.setItem('arsenic', document.getElementById('arsenic').value);
-
             // Redirect to result page
             window.location.href = 'result.html';
         });
     </script>
     <footer>
-        <p> © 2024 Eng. Odeh Al Amrow      </p>
-        <p> o_alamrow@hotmail.com     </p>
+        <p> © 2024 Eng. Odeh Al Amrow </p>
+        <p> o_alamrow@hotmail.com </p>
     </footer>
 </body>
 </html>
