@@ -8,36 +8,44 @@
 </head>
 <body>
     <h1>Water Quality Results</h1>
-    <div class="standards">
-        <div class="standard">
-            <h3>WHO</h3>
-            <div id="who-results"></div>
-        </div>
-        <div class="standard">
-            <h3>EPA</h3>
-            <div id="epa-results"></div>
-        </div>
-        <div class="standard">
-            <h3>EU</h3>
-            <div id="eu-results"></div>
-        </div>
-        <div class="standard">
-            <h3>ASTM</h3>
-            <div id="astm-results"></div>
-        </div>
+    <div class="results-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>WHO</th>
+                    <th>EPA</th>
+                    <th>EU</th>
+                    <th>ASTM</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                <!-- Results will be populated here -->
+            </tbody>
+        </table>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const results = JSON.parse(localStorage.getItem("waterQualityResults"));
+            const resultsBody = document.getElementById("results-body");
 
             if (results) {
                 for (const [param, status] of Object.entries(results)) {
-                    for (const [standard, result] of Object.entries(status)) {
-                        document.getElementById(`${standard.toLowerCase()}-results`).innerHTML += `<p>${param}: ${result}</p>`;
+                    const row = document.createElement("tr");
+                    const paramCell = document.createElement("td");
+                    paramCell.textContent = param;
+                    row.appendChild(paramCell);
+
+                    for (const standard of ['WHO', 'EPA', 'EU', 'ASTM']) {
+                        const cell = document.createElement("td");
+                        cell.textContent = status[standard] || "N/A"; // Display "N/A" if no result is found
+                        row.appendChild(cell);
                     }
+
+                    resultsBody.appendChild(row);
                 }
             } else {
-                document.getElementById("who-results").innerHTML = "No results available.";
+                resultsBody.innerHTML = "<tr><td colspan='5'>No results available.</td></tr>";
             }
             localStorage.removeItem("waterQualityResults"); // Clear results after displaying
         });
