@@ -57,8 +57,8 @@
         for (const parameter in parameters) {
             const value = parameters[parameter];
             let row = `<tr><td>${parameter.toUpperCase()}</td>`;
-            let status = "";
             for (const org in ranges[parameter]) {
+                let status;
                 if (value >= parseFloat(ranges[parameter][org].split('-')[0]) && value <= parseFloat(ranges[parameter][org].split('-')[1])) {
                     status = "Good";
                     row += `<td class="good">${status} (${ranges[parameter][org]})</td>`;
