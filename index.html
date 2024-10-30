@@ -8,66 +8,73 @@
 </head>
 <body>
     <h1>Water Quality Analyzer</h1>
-    <form id="parameterForm">
+    <form id="waterQualityForm">
         <div class="parameter-box">
-            <label for="ph">pH:</label>
-            <input type="number" id="ph" step="0.01" inputmode="decimal">
+            <label for="ph">PH (0-14):</label>
+            <input type="number" id="ph" name="ph" step="0.01" min="0" max="14" required>
         </div>
         <div class="parameter-box">
             <label for="turbidity">Turbidity (NTU):</label>
-            <input type="number" id="turbidity" step="0.01" inputmode="decimal">
+            <input type="number" id="turbidity" name="turbidity" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
-            <input type="number" id="tds" step="0.01" inputmode="decimal">
+            <input type="number" id="tds" name="tds" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
-            <label for="cn">Cyanide (CN) (ppm):</label>
-            <input type="number" id="cn" step="0.01" inputmode="decimal">
+            <label for="cyanide">Cyanide (CN) (ppm):</label>
+            <input type="number" id="cyanide" name="cyanide" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
-            <label for="br">Radiation (Bq):</label>
-            <input type="number" id="br" step="0.01" inputmode="decimal">
+            <label for="radiation">Radiation (Bq):</label>
+            <input type="number" id="radiation" name="radiation" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
-            <input type="number" id="nitrate" step="0.01" inputmode="decimal">
+            <input type="number" id="nitrate" name="nitrate" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="phosphate">Phosphate (PO4) (ppm):</label>
-            <input type="number" id="phosphate" step="0.01" inputmode="decimal">
+            <input type="number" id="phosphate" name="phosphate" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="lead">Lead (Pb) (ppb):</label>
-            <input type="number" id="lead" step="0.01" inputmode="decimal">
+            <input type="number" id="lead" name="lead" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="mercury">Mercury (Hg) (ppb):</label>
-            <input type="number" id="mercury" step="0.01" inputmode="decimal">
+            <input type="number" id="mercury" name="mercury" step="0.01" min="0" required>
         </div>
         <div class="parameter-box">
             <label for="arsenic">Arsenic (As) (ppb):</label>
-            <input type="number" id="arsenic" step="0.01" inputmode="decimal">
+            <input type="number" id="arsenic" name="arsenic" step="0.01" min="0" required>
         </div>
-        <button type="button" id="analyze-btn">Analyze</button>
+        <button type="submit">Analyze</button>
     </form>
+    
     <script>
-        document.getElementById("analyze-btn").addEventListener("click", function () {
-            const parameters = {
-                ph: parseFloat(document.getElementById("ph").value),
-                turbidity: parseFloat(document.getElementById("turbidity").value),
-                tds: parseFloat(document.getElementById("tds").value),
-                cn: parseFloat(document.getElementById("cn").value),
-                br: parseFloat(document.getElementById("br").value),
-                nitrate: parseFloat(document.getElementById("nitrate").value),
-                phosphate: parseFloat(document.getElementById("phosphate").value),
-                lead: parseFloat(document.getElementById("lead").value),
-                mercury: parseFloat(document.getElementById("mercury").value),
-                arsenic: parseFloat(document.getElementById("arsenic").value)
+        document.getElementById('waterQualityForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Retrieve form data
+            const data = {
+                ph: document.getElementById('ph').value,
+                turbidity: document.getElementById('turbidity').value,
+                tds: document.getElementById('tds').value,
+                cyanide: document.getElementById('cyanide').value,
+                radiation: document.getElementById('radiation').value,
+                nitrate: document.getElementById('nitrate').value,
+                phosphate: document.getElementById('phosphate').value,
+                lead: document.getElementById('lead').value,
+                mercury: document.getElementById('mercury').value,
+                arsenic: document.getElementById('arsenic').value
             };
 
-            localStorage.setItem("parameters", JSON.stringify(parameters));
-            window.location.href = "result.html";
+            // Store in local storage
+            localStorage.setItem('waterQualityData', JSON.stringify(data));
+
+            // Redirect to result.html
+            window.location.href = 'result.html';
         });
     </script>
 </body>
