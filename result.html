@@ -28,6 +28,7 @@
     <script>
         const results = document.getElementById("results");
         
+        // Retrieve the parameters from local storage
         const parameters = {
             ph: parseFloat(localStorage.getItem("ph")),
             turbidity: parseFloat(localStorage.getItem("turbidity")),
@@ -41,6 +42,7 @@
             arsenic: parseFloat(localStorage.getItem("arsenic"))
         };
 
+        // Define the ranges for each organization
         const ranges = {
             ph: { WHO: "6.5-8.5", EPA: "6.5-8.5", EU: "6.5-9", ASTM: "6.5-8.5" },
             turbidity: { WHO: "0-5", EPA: "0-5", EU: "0-4", ASTM: "0-5" },
@@ -54,12 +56,15 @@
             arsenic: { WHO: "0-0.01", EPA: "0-0.01", EU: "0-0.01", ASTM: "0-0.01" },
         };
 
+        // Populate the results table
         for (const parameter in parameters) {
             const value = parameters[parameter];
             let row = `<tr><td>${parameter.toUpperCase()}</td>`;
             for (const org in ranges[parameter]) {
                 let status;
-                if (value >= parseFloat(ranges[parameter][org].split('-')[0]) && value <= parseFloat(ranges[parameter][org].split('-')[1])) {
+                // Split the range and check if the value is within it
+                const [min, max] = ranges[parameter][org].split('-').map(Number);
+                if (value >= min && value <= max) {
                     status = "Good";
                     row += `<td class="good">${status} (${ranges[parameter][org]})</td>`;
                 } else {
@@ -68,7 +73,7 @@
                 }
             }
             row += `</tr>`;
-            results.innerHTML += row;
+            results.innerHTML += row; // Append the row to the results table
         }
     </script>
 </body>
