@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #FFD700;
@@ -79,7 +78,6 @@ footer a:hover {
     text-decoration: underline; /* Optional hover effect */
 }
 
-
 .good {
     color: rgb(0, 128, 38); /* Green for Good results */
     font-weight: bold;
@@ -88,4 +86,29 @@ footer a:hover {
 .not-safe {
     color: rgb(160, 19, 19); /* Red for Not Safe results */
     font-weight: bold;
+}
+
+/* Table and column styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px; /* Adjust padding to increase space between columns */
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td {
+    border-right: 1px solid #000; /* Line to separate columns */
+}
+
+td:last-child {
+    border-right: none; /* Remove line from last column */
 }
