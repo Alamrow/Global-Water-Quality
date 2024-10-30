@@ -24,18 +24,25 @@
     </table>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const results = JSON.parse(localStorage.getItem('waterQualityResults')) || [];
-            const resultsContainer = document.getElementById("results");
+            const results = JSON.parse(localStorage.getItem('results')) || [];
+            const resultsContainer = document.getElementById('results');
 
-            results.forEach(result => {
-                const row = document.createElement("tr");
-                const values = result.split(", ");
+            results.forEach(param => {
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${values[0].split(":")[0]}</td>
-                    <td style="color: ${values[1].includes('Good') ? 'green' : 'red'}">${values[1]}</td>
-                    <td style="color: ${values[2].includes('Good') ? 'green' : 'red'}">${values[2]}</td>
-                    <td style="color: ${values[3].includes('Good') ? 'green' : 'red'}">${values[3]}</td>
-                    <td style="color: ${values[4].includes('Good') ? 'green' : 'red'}">${values[4]}</td>
+                    <td>${param.name}</td>
+                    <td style="color: ${param.WHO === 'Good' ? 'green' : 'red'};">
+                        ${param.WHO} (${param.ranges.WHO})
+                    </td>
+                    <td style="color: ${param.EPA === 'Good' ? 'green' : 'red'};">
+                        ${param.EPA} (${param.ranges.EPA})
+                    </td>
+                    <td style="color: ${param.EU === 'Good' ? 'green' : 'red'};">
+                        ${param.EU} (${param.ranges.EU})
+                    </td>
+                    <td style="color: ${param.ASTM === 'Good' ? 'green' : 'red'};">
+                        ${param.ASTM} (${param.ranges.ASTM})
+                    </td>
                 `;
                 resultsContainer.appendChild(row);
             });
