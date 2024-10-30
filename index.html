@@ -11,57 +11,64 @@
     <form id="parameterForm">
         <div class="parameter-box">
             <label for="ph">pH:</label>
-            <input type="text" id="ph">
-            <span id="ph-result"></span>
+            <input type="number" id="ph" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="turbidity">Turbidity (NTU):</label>
-            <input type="text" id="turbidity">
-            <span id="turbidity-result"></span>
+            <input type="number" id="turbidity" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
-            <input type="text" id="tds">
-            <span id="tds-result"></span>
+            <input type="number" id="tds" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="cn">Cyanide (CN) (ppm):</label>
-            <input type="text" id="cn">
-            <span id="cn-result"></span>
+            <input type="number" id="cn" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="br">Radiation (Bq):</label>
-            <input type="text" id="br">
-            <span id="br-result"></span>
+            <input type="number" id="br" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
-            <input type="text" id="nitrate">
-            <span id="nitrate-result"></span>
+            <input type="number" id="nitrate" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="phosphate">Phosphate (PO4) (ppm):</label>
-            <input type="text" id="phosphate">
-            <span id="phosphate-result"></span>
+            <input type="number" id="phosphate" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="lead">Lead (Pb) (ppb):</label>
-            <input type="text" id="lead">
-            <span id="lead-result"></span>
+            <input type="number" id="lead" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="mercury">Mercury (Hg) (ppb):</label>
-            <input type="text" id="mercury">
-            <span id="mercury-result"></span>
+            <input type="number" id="mercury" step="0.01" inputmode="decimal">
         </div>
         <div class="parameter-box">
             <label for="arsenic">Arsenic (As) (ppb):</label>
-            <input type="text" id="arsenic">
-            <span id="arsenic-result"></span>
+            <input type="number" id="arsenic" step="0.01" inputmode="decimal">
         </div>
         <button type="button" id="analyze-btn">Analyze</button>
     </form>
-    <div id="results"></div>
-    <script src="app.js"></script>
+    <script>
+        document.getElementById("analyze-btn").addEventListener("click", function () {
+            const parameters = {
+                ph: parseFloat(document.getElementById("ph").value),
+                turbidity: parseFloat(document.getElementById("turbidity").value),
+                tds: parseFloat(document.getElementById("tds").value),
+                cn: parseFloat(document.getElementById("cn").value),
+                br: parseFloat(document.getElementById("br").value),
+                nitrate: parseFloat(document.getElementById("nitrate").value),
+                phosphate: parseFloat(document.getElementById("phosphate").value),
+                lead: parseFloat(document.getElementById("lead").value),
+                mercury: parseFloat(document.getElementById("mercury").value),
+                arsenic: parseFloat(document.getElementById("arsenic").value)
+            };
+
+            localStorage.setItem("parameters", JSON.stringify(parameters));
+            window.location.href = "result.html";
+        });
+    </script>
 </body>
 </html>
