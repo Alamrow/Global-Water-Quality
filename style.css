@@ -26,6 +26,7 @@ form {
 label {
     display: block;
     margin-bottom: 5px;
+    color: #555;
 }
 
 input {
@@ -37,17 +38,18 @@ input {
 }
 
 button {
-    background-color: #28a745;
+    background-color: #007bff; /* Blue color */
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 .result-header {
@@ -57,6 +59,7 @@ button:hover {
 .standards {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
 .standard {
@@ -65,4 +68,14 @@ button:hover {
     background-color: #ffffff;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0,
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.standard h3 {
+    color: #333;
+    text-align: center;
+}
+
+.standard p {
+    color: #555;
+}
