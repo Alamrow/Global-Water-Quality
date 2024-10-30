@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Water Quality Analyzer</h1>
+    <form id="parameterForm">
+        <div class="parameter-box">
+            <label for="ph">pH:</label>
+            <input type="text" id="ph">
+            <span id="ph-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="turbidity">Turbidity (NTU):</label>
+            <input type="text" id="turbidity">
+            <span id="turbidity-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
+            <input type="text" id="tds">
+            <span id="tds-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="cn">Cyanide (CN) (ppm):</label>
+            <input type="text" id="cn">
+            <span id="cn-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="br">Radiation (Bq):</label>
+            <input type="text" id="br">
+            <span id="br-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="nitrate">Nitrate (NO3) (ppm):</label>
+            <input type="text" id="nitrate">
+            <span id="nitrate-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="phosphate">Phosphate (PO4) (ppm):</label>
+            <input type="text" id="phosphate">
+            <span id="phosphate-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="lead">Lead (Pb) (ppm):</label>
+            <input type="text" id="lead">
+            <span id="lead-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="mercury">Mercury (Hg) (ppm):</label>
+            <input type="text" id="mercury">
+            <span id="mercury-result"></span>
+        </div>
+        <div class="parameter-box">
+            <label for="arsenic">Arsenic (As) (ppm):</label>
+            <input type="text" id="arsenic">
+            <span id="arsenic-result"></span>
+        </div>
+        <button type="button" id="analyze-btn">Analyze</button>
+    </form>
+    <div id="results"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function analyzeParameter(value, ranges) {
+                const status = {
+                    WHO: value <= ranges.WHO ? "Good" : "Out of Range",
+                    EPA: value <= ranges.EPA ? "Good" : "Out of Range",
+                    EU: value <= ranges.EU ? "Good" : "Out of Range",
+                    ASTM: value <= ranges.ASTM ? "Good" : "Out of Range"
+                };
+                return status;
+            }
+
+            function compareParameters() {
+                const parameters = [
+                    {
+                        id: "ph",
+                        name: "pH",
+                        unit: "",
+                        ranges: {
+                            WHO: 8.5,
+                            EPA: 8.5,
+                            EU: 9.0,
+                            ASTM: 8.5
+                        }
+                    },
+                    {
+                        id: "turbidity",
+                        name: "Turbidity",
+                        unit: "NTU",
+                        ranges: {
+                            WHO: 5,
+                            EPA: 5,
+                            EU: 4,
+                            ASTM: 5
+                        }
+                    },
+                    {
+                        id: "tds",
+                        name: "Total Dissolved Solids (TDS)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 1000,
+                            EPA: 500,
+                            EU: 1500,
+                            ASTM: 1000
+                        }
+                    },
+                    {
+                        id: "cn",
+                        name: "Cyanide (CN)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 0.07,
+                            EPA: 0.2,
+                            EU: 0.05,
+                            ASTM: 0.2
+                        }
+                    },
+                    {
+                        id: "br",
+                        name: "Radiation",
+                        unit: "Bq",
+                        ranges: {
+                            WHO: 100,
+                            EPA: 4,
+                            EU: 10,
+                            ASTM: 100
+                        }
+                    },
+                    {
+                        id: "nitrate",
+                        name: "Nitrate (NO3)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 50,
+                            EPA: 10,
+                            EU: 25,
+                            ASTM: 50
+                        }
+                    },
+                    {
+                        id: "phosphate",
+                        name: "Phosphate (PO4)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 0.1,
+                            EPA: 0.1,
+                            EU: 0.1,
+                            ASTM: 0.1
+                        }
+                    },
+                    {
+                        id: "lead",
+                        name: "Lead (Pb)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 0.01,
+                            EPA: 0.015,
+                            EU: 0.01,
+                            ASTM: 0.015
+                        }
+                    },
+                    {
+                        id: "mercury",
+                        name: "Mercury (Hg)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 0.006,
+                            EPA: 0.002,
+                            EU: 0.006,
+                            ASTM: 0.002
+                        }
+                    },
+                    {
+                        id: "arsenic",
+                        name: "Arsenic (As)",
+                        unit: "ppm",
+                        ranges: {
+                            WHO: 0.01,
+                            EPA: 0.01,
+                            EU: 0.01,
+                            ASTM: 0.01
+                        }
+                    }
+                ];
+
+                const results = parameters.map(param => {
+                    const value = parseFloat(document.getElementById(param.id).value);
+                    const statuses = isNaN(value)
+                        ? `Please enter a valid number for ${param.name}.`
+                        : `${param.name} (${param.unit}):
+                          WHO: ${analyzeParameter(value, param.ranges).WHO},
+                          EPA: ${analyzeParameter(value, param.ranges).EPA},
+                          EU: ${analyzeParameter(value, param.ranges).EU},
+                          ASTM: ${analyzeParameter(value, param.ranges).ASTM}`;
+                    return `<p>${statuses}</p>`;
+                }).join("");
+
+                document.getElementById("results").innerHTML = results;
+            }
+
+            document.getElementById("analyze-btn").addEventListener("click", compareParameters);
+        });
+    </script>
+</body>
+</html>
