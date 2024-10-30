@@ -1,65 +1,69 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f9;
 }
 
 h1 {
-    color: #333;
-    text-align: center;
+    color: #4CAF50;
+    margin-top: 20px;
 }
 
 form {
-    background-color: #fff;
+    background-color: white;
+    border-radius: 8px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .parameter-box {
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    align-items: center;
 }
 
 label {
-    width: 40%;
-    text-align: left;
-    font-weight: bold;
+    font-size: 16px;
+    color: #333;
 }
 
-input {
-    width: 55%;
+input[type="number"] {
     padding: 8px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 60%;
 }
 
 button {
-    display: block;
-    width: 100%;
-    background-color: #28a745;
+    background-color: #4CAF50;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #45a049;
 }
 
 #results {
-    margin: 20px auto;
-    width: 80%;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 90%;
+    max-width: 700px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -69,22 +73,23 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 12px;
     text-align: center;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #4CAF50;
+    color: white;
 }
 
 td {
-    color: #333;
+    font-size: 14px;
 }
 
-td.good {
-    color: green;
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-td.not-safe {
-    color: red;
+tbody tr:hover {
+    background-color: #f1f1f1;
 }
