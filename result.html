@@ -8,62 +8,19 @@
 </head>
 <body>
     <h1>Water Quality Results</h1>
-    <div class="results-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>WHO</th>
-                    <th>EPA</th>
-                    <th>EU</th>
-                    <th>ASTM</th>
-                </tr>
-            </thead>
-            <tbody id="results-body">
-                <!-- Results will be populated here -->
-            </tbody>
-        </table>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const results = JSON.parse(localStorage.getItem("waterQualityResults"));
-            const resultsBody = document.getElementById("results-body");
-
-            if (results) {
-                for (const [param, status] of Object.entries(results)) {
-                    const row = document.createElement("tr");
-                    const paramCell = document.createElement("td");
-                    paramCell.textContent = param;
-                    row.appendChild(paramCell);
-
-                    // Display results for each standard
-                    const whoCell = document.createElement("td");
-                    whoCell.textContent = status.WHO || "N/A"; // Handle N/A case
-                    row.appendChild(whoCell);
-
-                    const epaCell = document.createElement("td");
-                    epaCell.textContent = status.EPA || "N/A"; // Handle N/A case
-                    row.appendChild(epaCell);
-
-                    const euCell = document.createElement("td");
-                    euCell.textContent = status.EU || "N/A"; // Handle N/A case
-                    row.appendChild(euCell);
-
-                    const astmCell = document.createElement("td");
-                    astmCell.textContent = status.ASTM || "N/A"; // Handle N/A case
-                    row.appendChild(astmCell);
-
-                    resultsBody.appendChild(row);
-                }
-            } else {
-                const row = document.createElement("tr");
-                const messageCell = document.createElement("td");
-                messageCell.colSpan = 5;
-                messageCell.textContent = "No results available.";
-                row.appendChild(messageCell);
-                resultsBody.appendChild(row);
-            }
-        });
-    </script>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>WHO</th>
+                <th>EPA</th>
+                <th>EU</th>
+                <th>ASTM</th>
+            </tr>
+        </thead>
+        <tbody id="results">
+            <!-- Results will be injected here by JavaScript -->
+        </tbody>
+    </table>
 </body>
 </html>
