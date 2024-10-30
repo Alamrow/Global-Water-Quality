@@ -1,95 +1,86 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f4f4f9;
+    padding: 20px;
 }
 
 h1 {
-    color: #4CAF50;
-    margin-top: 20px;
+    color: #333;
+    text-align: center;
 }
 
 form {
-    background-color: white;
-    border-radius: 8px;
+    background-color: #fff;
     padding: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .parameter-box {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 15px 0;
 }
 
 label {
-    font-size: 16px;
-    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 input[type="number"] {
-    padding: 8px;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 60%;
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #28a745;
     color: white;
-    padding: 10px 20px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
 #results {
-    margin-top: 20px;
-    width: 90%;
-    max-width: 700px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 10px;
     text-align: center;
 }
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #f2f2f2;
+    font-weight: bold;
 }
 
 td {
-    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+.good {
+    color: green;
 }
 
-tbody tr:hover {
-    background-color: #f1f1f1;
+.not-safe {
+    color: red;
 }
