@@ -1,76 +1,90 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
-    text-align: center;
     color: #333;
+    text-align: center;
 }
 
 form {
-    background: #fff;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: 20px auto;
 }
 
 .parameter-box {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.parameter-box label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.parameter-box input {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.parameter-box span {
-    display: block;
-    margin-top: 5px;
-    font-size: 14px;
+label {
+    width: 40%;
+    text-align: left;
     font-weight: bold;
 }
 
+input {
+    width: 55%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 button {
-    padding: 10px 15px;
+    display: block;
+    width: 100%;
     background-color: #28a745;
-    color: #fff;
+    color: white;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 button:hover {
     background-color: #218838;
 }
 
+#results {
+    margin: 20px auto;
+    width: 80%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
-table th, table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
 }
 
-table th {
-    background-color: #f8f9fa;
+th {
+    background-color: #f2f2f2;
 }
 
-table td {
-    background-color: #fff;
+td {
+    color: #333;
+}
+
+td.good {
+    color: green;
+}
+
+td.not-safe {
+    color: red;
 }
