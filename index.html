@@ -3,74 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Quality Analyzer</title>
     <link rel="stylesheet" href="style.css">
+    <title>Water Quality Analyzer</title>
 </head>
 <body>
-    <h1>Water Quality Analyzer</h1>
-    <form id="waterQualityForm">
-        <div class="parameter-box">
-            <label for="ph">pH:</label>
-            <input type="number" id="ph" name="ph" step="0.1" required>
-        </div>
-        <div class="parameter-box">
+    <div class="container">
+        <h1>Water Quality Analyzer</h1>
+        <form id="waterQualityForm">
+            <label for="pH">pH:</label>
+            <input type="number" id="pH" placeholder="Enter pH value" required>
+            
             <label for="turbidity">Turbidity (NTU):</label>
-            <input type="number" id="turbidity" name="turbidity" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="turbidity" placeholder="Enter Turbidity (NTU)" required>
+            
             <label for="tds">Total Dissolved Solids (TDS) (ppm):</label>
-            <input type="number" id="tds" name="tds" required>
-        </div>
-        <div class="parameter-box">
-            <label for="cn">Cyanide (CN) (ppm):</label>
-            <input type="number" id="cn" name="cn" step="0.01" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="tds" placeholder="Enter TDS (ppm)" required>
+            
+            <label for="cyanide">Cyanide (CN) (ppm):</label>
+            <input type="number" id="cyanide" placeholder="Enter Cyanide (ppm)" required>
+            
             <label for="radiation">Radiation (Bq):</label>
-            <input type="number" id="radiation" name="radiation" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="radiation" placeholder="Enter Radiation (Bq)" required>
+            
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
-            <input type="number" id="nitrate" name="nitrate" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="nitrate" placeholder="Enter Nitrate (ppm)" required>
+            
             <label for="phosphate">Phosphate (PO4) (ppm):</label>
-            <input type="number" id="phosphate" name="phosphate" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="phosphate" placeholder="Enter Phosphate (ppm)" required>
+            
             <label for="lead">Lead (Pb) (ppm):</label>
-            <input type="number" id="lead" name="lead" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="lead" placeholder="Enter Lead (ppm)" required>
+            
             <label for="mercury">Mercury (Hg) (ppb):</label>
-            <input type="number" id="mercury" name="mercury" required>
-        </div>
-        <div class="parameter-box">
+            <input type="number" id="mercury" placeholder="Enter Mercury (ppb)" required>
+            
             <label for="arsenic">Arsenic (As) (ppb):</label>
-            <input type="number" id="arsenic" name="arsenic" required>
-        </div>
-        <button type="button" id="analyzeButton">Analyze</button>
-    </form>
-
+            <input type="number" id="arsenic" placeholder="Enter Arsenic (ppb)" required>
+            
+            <button type="button" id="analyze">Analyze</button>
+        </form>
+    </div>
+    
     <script>
-        document.getElementById('analyzeButton').addEventListener('click', function() {
-            const results = {
-                ph: document.getElementById('ph').value,
-                turbidity: document.getElementById('turbidity').value,
-                tds: document.getElementById('tds').value,
-                cn: document.getElementById('cn').value,
-                radiation: document.getElementById('radiation').value,
-                nitrate: document.getElementById('nitrate').value,
-                phosphate: document.getElementById('phosphate').value,
-                lead: document.getElementById('lead').value,
-                mercury: document.getElementById('mercury').value,
-                arsenic: document.getElementById('arsenic').value,
-            };
+        document.getElementById('analyze').addEventListener('click', function () {
+            localStorage.setItem('pH', document.getElementById('pH').value);
+            localStorage.setItem('turbidity', document.getElementById('turbidity').value);
+            localStorage.setItem('tds', document.getElementById('tds').value);
+            localStorage.setItem('cyanide', document.getElementById('cyanide').value);
+            localStorage.setItem('radiation', document.getElementById('radiation').value);
+            localStorage.setItem('nitrate', document.getElementById('nitrate').value);
+            localStorage.setItem('phosphate', document.getElementById('phosphate').value);
+            localStorage.setItem('lead', document.getElementById('lead').value);
+            localStorage.setItem('mercury', document.getElementById('mercury').value);
+            localStorage.setItem('arsenic', document.getElementById('arsenic').value);
 
-            // Save the results in local storage
-            localStorage.setItem('waterQualityResults', JSON.stringify(results));
-
-            // Redirect to the results page
+            // Redirect to result page
             window.location.href = 'result.html';
         });
     </script>
