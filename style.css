@@ -7,8 +7,8 @@ body {
 
 .container {
     max-width: 800px;
-    margin: auto;
-    background: white;
+    margin: 0 auto;
+    background: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,19 +27,15 @@ table {
 th, td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
 }
 
 .good {
-    color: green;
+    color: green; /* Green for Good results */
     font-weight: bold;
 }
 
 .not-safe {
-    color: red;
+    color: red; /* Red for Not Safe results */
     font-weight: bold;
 }
