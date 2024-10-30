@@ -64,145 +64,42 @@
     <div id="results"></div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-          function analyzeParameter(value, ranges) {
-            const status = {
-              WHO: value <= ranges.WHO ? "Good" : "Out of Range",
-              EPA: value <= ranges.EPA ? "Good" : "Out of Range",
-              EU: value <= ranges.EU ? "Good" : "Out of Range",
-              ASTM: value <= ranges.ASTM ? "Good" : "Out of Range"
-            };
-            return status;
-          }
+            function analyzeParameter(value, ranges) {
+                const status = {
+                    WHO: value <= ranges.WHO ? "Good" : "Out of Range",
+                    EPA: value <= ranges.EPA ? "Good" : "Out of Range",
+                    EU: value <= ranges.EU ? "Good" : "Out of Range",
+                    ASTM: value <= ranges.ASTM ? "Good" : "Out of Range"
+                };
+                return status;
+            }
 
-          function compareParameters() {
-            const parameters = [
-              {
-                id: "ph",
-                name: "pH",
-                unit: "",
-                ranges: {
-                  WHO: 8.5,
-                  EPA: 8.5,
-                  EU: 9.0,
-                  ASTM: 8.5
-                }
-              },
-              {
-                id: "turbidity",
-                name: "Turbidity",
-                unit: "NTU",
-                ranges: {
-                  WHO: 5,
-                  EPA: 5,
-                  EU: 4,
-                  ASTM: 5
-                }
-              },
-              {
-                id: "tds",
-                name: "Total Dissolved Solids (TDS)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 1000,
-                  EPA: 500,
-                  EU: 1500,
-                  ASTM: 1000
-                }
-              },
-              {
-                id: "cn",
-                name: "Cyanide (CN)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 0.07,
-                  EPA: 0.2,
-                  EU: 0.05,
-                  ASTM: 0.2
-                }
-              },
-              {
-                id: "br",
-                name: "Radiation",
-                unit: "Bq",
-                ranges: {
-                  WHO: 100,
-                  EPA: 4,
-                  EU: 10,
-                  ASTM: 100
-                }
-              },
-              {
-                id: "nitrate",
-                name: "Nitrate (NO3)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 50,
-                  EPA: 10,
-                  EU: 50,
-                  ASTM: 50
-                }
-              },
-              {
-                id: "phosphate",
-                name: "Phosphate (PO4)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 0.1,
-                  EPA: 0.1,
-                  EU: 0.5,
-                  ASTM: 0.1
-                }
-              },
-              {
-                id: "lead",
-                name: "Lead (Pb)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 0.01,
-                  EPA: 0.015,
-                  EU: 0.01,
-                  ASTM: 0.005
-                }
-              },
-              {
-                id: "mercury",
-                name: "Mercury (Hg)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 0.006,
-                  EPA: 0.002,
-                  EU: 0.005,
-                  ASTM: 0.002
-                }
-              },
-              {
-                id: "arsenic",
-                name: "Arsenic (As)",
-                unit: "ppm",
-                ranges: {
-                  WHO: 0.01,
-                  EPA: 0.01,
-                  EU: 0.01,
-                  ASTM: 0.01
-                }
-              }
-            ];
+            function compareParameters() {
+                const parameters = [
+                    { id: "ph", name: "pH", unit: "", ranges: { WHO: 8.5, EPA: 8.5, EU: 9.0, ASTM: 8.5 } },
+                    { id: "turbidity", name: "Turbidity", unit: "NTU", ranges: { WHO: 5, EPA: 5, EU: 4, ASTM: 5 } },
+                    { id: "tds", name: "Total Dissolved Solids (TDS)", unit: "ppm", ranges: { WHO: 1000, EPA: 500, EU: 1500, ASTM: 1000 } },
+                    { id: "cn", name: "Cyanide (CN)", unit: "ppm", ranges: { WHO: 0.07, EPA: 0.2, EU: 0.05, ASTM: 0.2 } },
+                    { id: "br", name: "Radiation", unit: "Bq", ranges: { WHO: 100, EPA: 4, EU: 10, ASTM: 100 } },
+                    { id: "nitrate", name: "Nitrate (NO3)", unit: "ppm", ranges: { WHO: 50, EPA: 10, EU: 50, ASTM: 50 } },
+                    { id: "phosphate", name: "Phosphate (PO4)", unit: "ppm", ranges: { WHO: 0.1, EPA: 0.1, EU: 0.1, ASTM: 0.1 } },
+                    { id: "lead", name: "Lead (Pb)", unit: "ppm", ranges: { WHO: 0.01, EPA: 0.015, EU: 0.01, ASTM: 0.01 } },
+                    { id: "mercury", name: "Mercury (Hg)", unit: "ppm", ranges: { WHO: 0.006, EPA: 0.002, EU: 0.005, ASTM: 0.006 } },
+                    { id: "arsenic", name: "Arsenic (As)", unit: "ppm", ranges: { WHO: 0.01, EPA: 0.01, EU: 0.01, ASTM: 0.01 } }
+                ];
 
-            const results = {};
-            parameters.forEach(param => {
-              const value = parseFloat(document.getElementById(param.id).value);
-              const statuses = isNaN(value) ? 
-                { WHO: "N/A", EPA: "N/A", EU: "N/A", ASTM: "N/A" } : // Set default status as N/A if not a valid number
-                analyzeParameter(value, param.ranges);
+                const results = {};
+                parameters.forEach(param => {
+                    const value = parseFloat(document.getElementById(param.id).value);
+                    const statuses = isNaN(value) ? "Please enter a valid number." : analyzeParameter(value, param.ranges);
+                    results[param.name] = statuses;
+                });
 
-              results[param.name] = statuses;
-            });
+                localStorage.setItem("waterQualityResults", JSON.stringify(results));
+                window.location.href = "result.html"; // Navigate to results page
+            }
 
-            localStorage.setItem("waterQualityResults", JSON.stringify(results));
-            window.location.href = "result.html"; // Redirect to results page
-          }
-
-          document.getElementById("analyze-btn").addEventListener("click", compareParameters);
+            document.getElementById("analyze-btn").addEventListener("click", compareParameters);
         });
     </script>
 </body>
