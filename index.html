@@ -26,8 +26,8 @@
             <input type="text" id="cn">
         </div>
         <div class="parameter-box">
-            <label for="br">Radiation (Bq):</label>
-            <input type="text" id="br">
+            <label for="radiation">Radiation (Bq):</label>
+            <input type="text" id="radiation">
         </div>
         <div class="parameter-box">
             <label for="nitrate">Nitrate (NO3) (ppm):</label>
@@ -52,49 +52,46 @@
         <button type="button" id="analyze-btn">Analyze</button>
     </form>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          function analyzeParameter(value, ranges) {
-            const status = {
-              WHO: value <= ranges.WHO ? "Good" : "Out of Range",
-              EPA: value <= ranges.EPA ? "Good" : "Out of Range",
-              EU: value <= ranges.EU ? "Good" : "Out of Range",
-              ASTM: value <= ranges.ASTM ? "Good" : "Out of Range"
-            };
-            return status;
-          }
-
-          document.getElementById("analyze-btn").addEventListener("click", function() {
+        document.getElementById("analyze-btn").addEventListener("click", function() {
             const parameters = [
-              { id: "ph", ranges: { WHO: 8.5, EPA: 8.5, EU: 9.0, ASTM: 8.5 } },
-              { id: "turbidity", ranges: { WHO: 5, EPA: 5, EU: 4, ASTM: 5 } },
-              { id: "tds", ranges: { WHO: 1000, EPA: 500, EU: 1500, ASTM: 1000 } },
-              { id: "cn", ranges: { WHO: 0.07, EPA: 0.2, EU: 0.05, ASTM: 0.2 } },
-              { id: "br", ranges: { WHO: 100, EPA: 4, EU: 10, ASTM: 100 } },
-              { id: "nitrate", ranges: { WHO: 50, EPA: 10, EU: 50, ASTM: 10 } },
-              { id: "phosphate", ranges: { WHO: 0.1, EPA: 0.5, EU: 0.1, ASTM: 0.1 } },
-              { id: "lead", ranges: { WHO: 0.01, EPA: 0.015, EU: 0.01, ASTM: 0.01 } },
-              { id: "mercury", ranges: { WHO: 0.006, EPA: 0.002, EU: 0.006, ASTM: 0.002 } },
-              { id: "arsenic", ranges: { WHO: 0.01, EPA: 0.01, EU: 0.01, ASTM: 0.01 } },
+                { id: "ph", ranges: { WHO: "6.5-8.5", EPA: "6.5-8.5", EU: "6.5-9.0", ASTM: "6.5-8.5" } },
+                { id: "turbidity", ranges: { WHO: "0-5", EPA: "0-5", EU: "0-4", ASTM: "0-5" } },
+                { id: "tds", ranges: { WHO: "0-1000", EPA: "0-500", EU: "0-1500", ASTM: "0-1000" } },
+                { id: "cn", ranges: { WHO: "0-0.07", EPA: "0-0.2", EU: "0-0.05", ASTM: "0-0.2" } },
+                { id: "radiation", ranges: { WHO: "0-100", EPA: "0-4", EU: "0-10", ASTM: "0-100" } },
+                { id: "nitrate", ranges: { WHO: "0-50", EPA: "0-10", EU: "0-50", ASTM: "0-10" } },
+                { id: "phosphate", ranges: { WHO: "0-0.1", EPA: "0-0.5", EU: "0-0.1", ASTM: "0-0.1" } },
+                { id: "lead", ranges: { WHO: "0-0.01", EPA: "0-0.015", EU: "0-0.01", ASTM: "0-0.01" } },
+                { id: "mercury", ranges: { WHO: "0-0.006", EPA: "0-0.002", EU: "0-0.006", ASTM: "0-0.002" } },
+                { id: "arsenic", ranges: { WHO: "0-0.01", EPA: "0-0.01", EU: "0-0.01", ASTM: "0-0.01" } },
             ];
 
             const results = parameters.map(param => {
-              const value = parseFloat(document.getElementById(param.id).value);
-              const status = isNaN(value) ? `Please enter a valid number for ${param.id}.` : `${analyzeParameter(value, param.ranges)[WHO]} (${param.ranges.WHO})`;
-              return `<tr>
-                        <td>${param.id}</td>
-                        <td>${analyzeParameter(value, param.ranges).WHO} (${param.ranges.WHO})</td>
-                        <td>${analyzeParameter(value, param.ranges).EPA} (${param.ranges.EPA})</td>
-                        <td>${analyzeParameter(value, param.ranges).EU} (${param.ranges.EU})</td>
-                        <td>${analyzeParameter(value, param.ranges).ASTM} (${param.ranges.ASTM})</td>
-                      </tr>`;
+                const value = parseFloat(document.getElementById(param.id).value);
+                const status = analyzeParameter(value, param.ranges);
+                return `<tr>
+                    <td>${param.id}</td>
+                    <td>${status.WHO}</td>
+                    <td>${status.EPA}</td>
+                    <td>${status.EU}</td>
+                    <td>${status.ASTM}</td>
+                </tr>`;
             }).join("");
 
             const resultWindow = window.open('result.html', '_blank');
             resultWindow.onload = function() {
-              resultWindow.document.getElementById("results").innerHTML = results;
+                resultWindow.document.getElementById("results").innerHTML = results;
             };
-          });
         });
+
+        function analyzeParameter(value, ranges) {
+            return {
+                WHO: (value >= 6.5 && value <= 8.5) ? "Good (6.5-8.5)" : "Out of Range",
+                EPA: (value >= 6.5 && value <= 8.5) ? "Good (6.5-8.5)" : "Out of Range",
+                EU: (value >= 6.5 && value <= 9.0) ? "Good (6.5-9.0)" : "Out of Range",
+                ASTM: (value >= 6.5 && value <= 8.5) ? "Good (6.5-8.5)" : "Out of Range",
+            };
+        }
     </script>
 </body>
 </html>
