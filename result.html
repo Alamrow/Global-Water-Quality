@@ -36,18 +36,33 @@
                     paramCell.textContent = param;
                     row.appendChild(paramCell);
 
-                    for (const standard of ['WHO', 'EPA', 'EU', 'ASTM']) {
-                        const cell = document.createElement("td");
-                        cell.textContent = status[standard] || "N/A"; // Display "N/A" if no result is found
-                        row.appendChild(cell);
-                    }
+                    // Display results for each standard
+                    const whoCell = document.createElement("td");
+                    whoCell.textContent = status.WHO || "N/A"; // Handle N/A case
+                    row.appendChild(whoCell);
+
+                    const epaCell = document.createElement("td");
+                    epaCell.textContent = status.EPA || "N/A"; // Handle N/A case
+                    row.appendChild(epaCell);
+
+                    const euCell = document.createElement("td");
+                    euCell.textContent = status.EU || "N/A"; // Handle N/A case
+                    row.appendChild(euCell);
+
+                    const astmCell = document.createElement("td");
+                    astmCell.textContent = status.ASTM || "N/A"; // Handle N/A case
+                    row.appendChild(astmCell);
 
                     resultsBody.appendChild(row);
                 }
             } else {
-                resultsBody.innerHTML = "<tr><td colspan='5'>No results available.</td></tr>";
+                const row = document.createElement("tr");
+                const messageCell = document.createElement("td");
+                messageCell.colSpan = 5;
+                messageCell.textContent = "No results available.";
+                row.appendChild(messageCell);
+                resultsBody.appendChild(row);
             }
-            localStorage.removeItem("waterQualityResults"); // Clear results after displaying
         });
     </script>
 </body>
