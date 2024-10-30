@@ -8,45 +8,21 @@
 </head>
 <body>
     <h1>Water Quality Results</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Parameter</th>
-                <th>WHO</th>
-                <th>EPA</th>
-                <th>EU</th>
-                <th>ASTM</th>
-            </tr>
-        </thead>
-        <tbody id="results">
-            <!-- Results will be injected here by JavaScript -->
-        </tbody>
-    </table>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const results = JSON.parse(localStorage.getItem('results')) || [];
-            const resultsContainer = document.getElementById('results');
-
-            results.forEach(param => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${param.name}</td>
-                    <td style="color: ${param.WHO === 'Good' ? 'green' : 'red'};">
-                        ${param.WHO} (${param.ranges.WHO})
-                    </td>
-                    <td style="color: ${param.EPA === 'Good' ? 'green' : 'red'};">
-                        ${param.EPA} (${param.ranges.EPA})
-                    </td>
-                    <td style="color: ${param.EU === 'Good' ? 'green' : 'red'};">
-                        ${param.EU} (${param.ranges.EU})
-                    </td>
-                    <td style="color: ${param.ASTM === 'Good' ? 'green' : 'red'};">
-                        ${param.ASTM} (${param.ranges.ASTM})
-                    </td>
-                `;
-                resultsContainer.appendChild(row);
-            });
-        });
-    </script>
+    <div id="results">
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>WHO</th>
+                    <th>EPA</th>
+                    <th>EU</th>
+                    <th>ASTM</th>
+                </tr>
+            </thead>
+            <tbody id="result-body">
+                <!-- Results will be dynamically injected here -->
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
